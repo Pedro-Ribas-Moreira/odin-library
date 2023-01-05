@@ -1,0 +1,6 @@
+.checkBtn:not(:disabled):not(:disabled):active {
+  background-color: green;
+}
+.checkBtn.active {
+  background-color: green;
+}
