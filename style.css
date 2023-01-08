@@ -4,3 +4,12 @@
 .checkBtn.active {
   background-color: green;
 }
+
+.card {
+  width: 18rem;
+}
+
+.card-img-top {
+  height: 18rem;
+  overflow: hidden;
+}

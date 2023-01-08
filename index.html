@@ -25,28 +25,36 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-capitalize" id="exampleModalLongTitle">Add a new book</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" ad="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form>
       <div class="modal-body">
 
-          <div class="form-group ">
+          <div class="form-group add_book_form ">
             <label for="inputTitle">Title:</label>
+            
             <input type="text" class="form-control mb-3 mb-2" id="inputTitle"  placeholder="Book title:" required>
             <div class="invalid-feedback">
-              Please provide a valid state.
+              Please provide the book title.
             </div>
-            <label for="inputAuthor">Author:</label>
-     
-      
-            <input type="text" class="form-control mb-3" id="inputAuthor"  placeholder="Author:">
+
+            <label for="inputAuthor">Author:</label>      
+            <input type="text" class="form-control mb-3" id="inputAuthor"  placeholder="Author:" required>
+            <div class="invalid-feedback">
+              Please provide the author name.
+            </div>
+            
             <label for="inputDate">Published:</label>
-            <input type="date" class="form-control mb-3" id="inputDate"  placeholder="Publication date:">
+            <input type="number" class="form-control mb-3"  min="1200" max="2099" step="1" id="inputDate" placeholder="Publication date:" required>
+           <div class="invalid-feedback">
+              Please provide a valid date.
+            </div>
             <label for="inputImg">Image:</label>
-            <input type="url" class="form-control mb-3" id="inputImg"  placeholder="Image url:">
-            <label for="inputRating">Rating:</label>
+            <input type="url" class="form-control mb-3" id="inputImg"  placeholder="Image url:" >
+       
+               <label for="inputRating">Rating:</label>
             <select class="form-control mb-3" id="inputRating">
               <option value="0">Unknown</option>
               <option value="1">1</option>
@@ -57,6 +65,7 @@
             </select>
             <input type="checkbox" class="form-check-input" id="isRead"  value="isRead">
             <label class="form-check-label" for="isRead">Mark as read</label>
+            
           </div>
           
           
@@ -72,11 +81,10 @@
     </header>
     <main>
       <div class="container-fluid m-4">
-        <div class="row align-items-start">
-          <div class="card me-auto" style="width: 18rem">
+        <div class="row align-items-start" id="main-box">
+          <div class="card me-auto">
             <div
               class="card-img-top pt-2"
-              style="height: 18rem; overflow: hidden"
             >
               <img
                 src="https://www.easons.com/globalassets/5637150827/all/books/childrens/childrens-5-to-8/fiction-5-to-8-years/9781529034523.jpg"
@@ -90,7 +98,7 @@
                 <li
                   class="list-group-item d-flex justify-content-between align-items-start p-0  pt-2 pb-2"
                 >
-                  <div class="">
+                  <div>
                     <div class="fw-bold">Author</div>
                     Douglas Adams
                   </div>
@@ -98,7 +106,7 @@
                 <li
                   class="list-group-item d-flex justify-content-between align-items-start p-0 pt-2 pb-2"
                 >
-                  <div class="">
+                  <div>
                     <div class="fw-bold">Published</div>
                     1979
                   </div>
@@ -106,7 +114,7 @@
                 <li
                   class="list-group-item d-flex justify-content-between align-items-start p-0 pt-2 pb-2"
                 >
-                  <div class="">
+                  <div>
                     <div class="fw-bold">Rating</div>
                     4/5
                   </div>
