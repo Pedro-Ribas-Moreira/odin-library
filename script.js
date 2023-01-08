@@ -19,14 +19,15 @@ const inputImg = document.querySelector("#inputImg");
 const inputRating = document.querySelector("#inputRating");
 const isRead = document.querySelector("#isRead");
 
+// CREATE new book
 document.querySelector("#addBookBtn").addEventListener("click", () => {
-  console.log(isRead.value);
-
-  console.log(`inputAuthor: ${inputAuthor.value}; 
+  //Input validation
+  if (inputAuthor)
+    console.log(`inputAuthor: ${inputAuthor.value}; 
   inputImg: ${inputImg.value}; 
   inputTitle: ${inputTitle.value}; 
   inputDate: ${inputDate.value}; 
   inputRating: ${inputRating.value}; 
-  isRead: ${isRead.value};
+  isRead: ${isRead.checked};
   `);
 });

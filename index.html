@@ -29,13 +29,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form>
       <div class="modal-body">
 
-        <form>
-          <div class="form-group">
+          <div class="form-group ">
             <label for="inputTitle">Title:</label>
-            <input type="text" class="form-control mb-3 mb-2" id="inputTitle"  placeholder="Book title:">
+            <input type="text" class="form-control mb-3 mb-2" id="inputTitle"  placeholder="Book title:" required>
+            <div class="invalid-feedback">
+              Please provide a valid state.
+            </div>
             <label for="inputAuthor">Author:</label>
+     
+      
             <input type="text" class="form-control mb-3" id="inputAuthor"  placeholder="Author:">
             <label for="inputDate">Published:</label>
             <input type="date" class="form-control mb-3" id="inputDate"  placeholder="Publication date:">
@@ -53,14 +58,14 @@
             <input type="checkbox" class="form-check-input" id="isRead"  value="isRead">
             <label class="form-check-label" for="isRead">Mark as read</label>
           </div>
-        </form>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="addBookBtn">Add Book</button>
-      </div>
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="addBookBtn">Add Book</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
