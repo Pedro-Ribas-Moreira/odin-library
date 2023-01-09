@@ -8,11 +8,24 @@ const addBookForm = document.querySelector(".add_book_form");
 
 //Load saved setBooks
 
-let setBooks;
+let setBooks = [];
 window.addEventListener("load", () => {
   const booksData = JSON.parse(window.localStorage.getItem("books"));
   if (booksData !== null) {
-    setBooks = booksData;
+    setBooks = [...booksData];
+    console.log(setBooks);
+    // setBooks.map((e) => console.log(e));
+    // // booksData.map((book) => {
+    // //   createNewBook(
+    // //     book.author,
+    // //     book.title,
+    // //     book.date,
+    // //     book.img,
+    // //     book.rating,
+    // //     book.isRead,
+    // //     book.id
+    // //   );
+    // // });
     for (let i = 0; i < setBooks.length; i++) {
       createNewBook(
         setBooks[i].author,
@@ -64,7 +77,7 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
     setBooks.push(book);
     //saving new book to local storage
     localStorage.setItem("books", JSON.stringify(setBooks));
-
+    console.log(setBooks);
     // add new book element
     createNewBook(
       book.author,
