@@ -1,7 +1,31 @@
-// $("#exampleModalCenter").on("shown.bs.modal", function () {
-//   $("#myInput").trigger("focus");
-// });
+const inputAuthor = document.querySelector("#inputAuthor");
+const inputDate = document.querySelector("#inputDate");
+const inputTitle = document.querySelector("#inputTitle");
+const inputImg = document.querySelector("#inputImg");
+const inputRating = document.querySelector("#inputRating");
+const isRead = document.querySelector("#isRead");
+const addBookForm = document.querySelector(".add_book_form");
 
+//Load saved setBooks
+
+let setBooks;
+window.addEventListener("load", () => {
+  const booksData = JSON.parse(window.localStorage.getItem("books"));
+  if (booksData !== null) {
+    setBooks = booksData;
+    for (let i = 0; i < setBooks.length; i++) {
+      createNewBook(
+        setBooks[i].author,
+        setBooks[i].title,
+        setBooks[i].date,
+        setBooks[i].img,
+        setBooks[i].rating,
+        setBooks[i].isRead,
+        setBooks[i].id
+      );
+    }
+  }
+});
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("checkBtn")) {
     const checkBtn = e.target;
@@ -13,14 +37,6 @@ document.addEventListener("click", (e) => {
     }
   }
 });
-
-const inputAuthor = document.querySelector("#inputAuthor");
-const inputDate = document.querySelector("#inputDate");
-const inputTitle = document.querySelector("#inputTitle");
-const inputImg = document.querySelector("#inputImg");
-const inputRating = document.querySelector("#inputRating");
-const isRead = document.querySelector("#isRead");
-const addBookForm = document.querySelector(".add_book_form");
 
 // CREATE new book
 document.querySelector("#addBookBtn").addEventListener("click", (e) => {
@@ -45,8 +61,9 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
       rating: rating,
       isRead: isRead.checked,
     };
+    setBooks.push(book);
     //saving new book to local storage
-    localStorage.setItem("book", JSON.stringify(book));
+    localStorage.setItem("books", JSON.stringify(setBooks));
 
     // add new book element
     createNewBook(
