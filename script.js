@@ -5,27 +5,26 @@ const inputImg = document.querySelector("#inputImg");
 const inputRating = document.querySelector("#inputRating");
 const isRead = document.querySelector("#isRead");
 const addBookForm = document.querySelector(".add_book_form");
+const editInputAuthor = document.querySelector("#editInputAuthor");
+const editInputDate = document.querySelector("#editInputDate");
+const editInputTitle = document.querySelector("#editInputTitle");
+const editInputImg = document.querySelector("#editInputImg");
+const editInputRating = document.querySelector("#editInputRating");
 
+window.localStorage.setItem(
+  "adm",
+  JSON.stringify({
+    email: "adm@email.com",
+    password: "1234567",
+  })
+);
 //Load saved setBooks
-
 let setBooks = [];
 window.addEventListener("load", () => {
   const booksData = JSON.parse(window.localStorage.getItem("books"));
   if (booksData !== null) {
     setBooks = [...booksData];
-    console.log(setBooks);
-    // setBooks.map((e) => console.log(e));
-    // // booksData.map((book) => {
-    // //   createNewBook(
-    // //     book.author,
-    // //     book.title,
-    // //     book.date,
-    // //     book.img,
-    // //     book.rating,
-    // //     book.isRead,
-    // //     book.id
-    // //   );
-    // // });
+
     for (let i = 0; i < setBooks.length; i++) {
       createNewBook(
         setBooks[i].author,
@@ -77,7 +76,6 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
     setBooks.push(book);
     //saving new book to local storage
     localStorage.setItem("books", JSON.stringify(setBooks));
-    console.log(setBooks);
     // add new book element
     createNewBook(
       book.author,
@@ -89,8 +87,8 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
       book.id
     );
     //close modal
-    var myModalEl = document.querySelector("#exampleModalCenter");
-    var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+    let myModalEl = document.querySelector("#exampleModalCenter");
+    let modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
     modal.hide();
 
     //reset inputs
@@ -110,11 +108,13 @@ const createNewBook = (author, title, date, url, rating, isRead, id) => {
 
   const card = document.createElement("div");
   card.classList.add("card", "me-auto");
+  card.id = id;
   mainBox.appendChild(card);
 
-  const cardId = document.createElement("div");
-  cardId.style.display = "none";
-  cardId.id = id;
+  // const cardId = document.createElement("div");
+  // cardId.style.display = "none";
+  // cardId.id = id;
+  // card.appendChild(cardId);
 
   const cardTop = document.createElement("div");
   cardTop.classList.add("card-img-top", "pt-2");
@@ -190,4 +190,97 @@ const createNewBook = (author, title, date, url, rating, isRead, id) => {
   }
 
   cardBody.appendChild(readBtnDiv);
+
+  const editDiv = document.createElement("div");
+  editDiv.classList.add("d-grid", "gap-2", "mt-2");
+  editDiv.innerHTML = `<button class='btn btn-danger  deleteBtn ${id}' type='button'><i class='fa-regular fa-trash-can'></i> Delete</button><button class='btn btn-secondary editBtn ${id}' type='button'><i class='fa-regular fa-pen-to-square mr-2'></i> Edit</button></div>`;
+  cardBody.appendChild(editDiv);
 };
+
+document.querySelector("#signInBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  const emailInput = document.querySelector("#emailInput").value;
+  const passwordInput = document.querySelector("#passwordInput").value;
+  document.querySelector(".form-signin").classList.add("was-validated");
+
+  const user = JSON.parse(window.localStorage.getItem("adm"));
+
+  if (user.email === emailInput && user.password === passwordInput) {
+    let myModalEl = document.querySelector("#loginModal");
+    let modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+    modal.hide();
+
+    const editDiv = document.querySelectorAll(".editBtn");
+    const dltBtn = document.querySelectorAll(".deleteBtn");
+    editDiv.forEach((e) => (e.style.display = "block"));
+    dltBtn.forEach((e) => (e.style.display = "block"));
+  }
+});
+
+//delete card
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("deleteBtn")) {
+    const id = e.target.classList[3];
+    let card = document.getElementById(id);
+    for (let i = 0; i < setBooks.length; i++) {
+      if (setBooks[i].id == id) {
+        setBooks.splice(i, 1);
+      }
+    }
+    localStorage.setItem("books", JSON.stringify(setBooks));
+    card.remove();
+  }
+  if (e.target.classList.contains("editBtn")) {
+    const id = e.target.classList[3];
+    let editBookId = document.querySelector("#editBookId");
+    editBookId.innerText = "";
+    // let card = document.getElementById(id);
+    for (let i = 0; i < setBooks.length; i++) {
+      if (setBooks[i].id == id) {
+        editInputAuthor.value = setBooks[i].author;
+        editInputDate.value = setBooks[i].date;
+        editInputImg.value = setBooks[i].img;
+        editInputTitle.value = setBooks[i].title;
+        editBookId.innerText = setBooks[i].id;
+      }
+    }
+
+    let myModalEl = document.querySelector("#editModal");
+    let modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+    modal.show(myModalEl);
+  }
+});
+
+const submitEditBook = document.querySelector("#submitEditBook");
+submitEditBook.addEventListener("click", (e) => {
+  e.preventDefault();
+  const editBookId = document.querySelector("#editBookId");
+
+  for (let i = 0; i < setBooks.length; i++) {
+    if (setBooks[i].id == editBookId.innerText) {
+      setBooks[i].author = editInputAuthor.value;
+      setBooks[i].date = editInputDate.value;
+      setBooks[i].title = editInputTitle.value;
+      setBooks[i].img = editInputImg.value;
+      setBooks[i].rating = editInputRating.value;
+    }
+  }
+  localStorage.setItem("books", JSON.stringify(setBooks));
+
+  const main = document.querySelector("#main-box");
+  main.innerHTML = "";
+  for (let i = 0; i < setBooks.length; i++) {
+    createNewBook(
+      setBooks[i].author,
+      setBooks[i].title,
+      setBooks[i].date,
+      setBooks[i].img,
+      setBooks[i].rating,
+      setBooks[i].isRead,
+      setBooks[i].id
+    );
+  }
+  let myModalEl = document.querySelector("#editModal");
+  let modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+  modal.hide(myModalEl);
+});

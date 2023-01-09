@@ -35,3 +35,12 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.editBtn,
+.deleteBtn {
+  display: none;
+}
+
+.cardEditDiv > i {
+  margin-right: 0.4rem;
+}

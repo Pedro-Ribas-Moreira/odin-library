@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap demo</title>
     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -13,163 +20,287 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
     <header>
-
       <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-  New Book
-</button>
-<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-capitalize" id="exampleModalLongTitle">Add a new book</h5>
-        <button type="button" class="close" ad="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form>
-      <div class="modal-body">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModalCenter"
+      >
+        New Book
+      </button>
+      <div
+        class="modal fade"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title text-capitalize"
+                id="exampleModalLongTitle"
+              >
+                Add a new book
+              </h5>
+              <button type="button" class="close" ad="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form>
+              <div class="modal-body">
+                <div class="form-group add_book_form">
+                  <label for="inputTitle">Title:</label>
 
-          <div class="form-group add_book_form ">
-            <label for="inputTitle">Title:</label>
-            
-            <input type="text" class="form-control mb-3 mb-2" id="inputTitle"  placeholder="Book title:" required>
-            <div class="invalid-feedback">
-              Please provide the book title.
-            </div>
+                  <input
+                    type="text"
+                    class="form-control mb-3 mb-2"
+                    id="inputTitle"
+                    placeholder="Book title:"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please provide the book title.
+                  </div>
 
-            <label for="inputAuthor">Author:</label>      
-            <input type="text" class="form-control mb-3" id="inputAuthor"  placeholder="Author:" required>
-            <div class="invalid-feedback">
-              Please provide the author name.
-            </div>
-            
-            <label for="inputDate">Published:</label>
-            <input type="number" class="form-control mb-3"  min="1200" max="2099" step="1" id="inputDate" placeholder="Publication date:" required>
-           <div class="invalid-feedback">
-              Please provide a valid date.
-            </div>
-            <label for="inputImg">Image:</label>
-            <input type="url" class="form-control mb-3" id="inputImg"  placeholder="Image url:" >
-       
-               <label for="inputRating">Rating:</label>
-            <select class="form-control mb-3" id="inputRating">
-              <option value="0">Unknown</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <input type="checkbox" class="form-check-input" id="isRead"  value="isRead">
-            <label class="form-check-label" for="isRead">Mark as read</label>
-            
+                  <label for="inputAuthor">Author:</label>
+                  <input
+                    type="text"
+                    class="form-control mb-3"
+                    id="inputAuthor"
+                    placeholder="Author:"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please provide the author name.
+                  </div>
+
+                  <label for="inputDate">Published:</label>
+                  <input
+                    type="number"
+                    class="form-control mb-3"
+                    min="1200"
+                    max="2099"
+                    step="1"
+                    id="inputDate"
+                    placeholder="Publication date:"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please provide a valid date.
+                  </div>
+                  <label for="inputImg">Image:</label>
+                  <input
+                    type="url"
+                    class="form-control mb-3"
+                    id="inputImg"
+                    placeholder="Image url:"
+                  />
+
+                  <label for="inputRating">Rating:</label>
+                  <select class="form-control mb-3" id="inputRating">
+                    <option value="0">Unknown</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="isRead"
+                    value="isRead"
+                  />
+                  <label class="form-check-label" for="isRead"
+                    >Mark as read</label
+                  >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary" id="addBookBtn">
+                  Add Book
+                </button>
+              </div>
+            </form>
           </div>
-          
-          
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="addBookBtn">Add Book</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#loginModal">
-  Login
-</button>
-<div class="modal fade " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <!-- <button type="button" class="close" ad="modal" aria-label="Close" >
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="loginBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        Login
+      </button>
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="loginModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <!-- <button type="button" class="close" ad="modal" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button> -->
-      
-      <div class="modal-body form-signin w-100 m-auto mt-5">
 
-        <form class="">
-          
-          <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
-          
-        <div class="form-floating">
-          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-          <label for="floatingInput">Email address</label>
+            <div class="modal-body form-signin w-100 m-auto mt-5">
+              <form class="">
+                <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
+
+                <div class="form-floating">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="emailInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="emailInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="passwordInput"
+                    placeholder="Password"
+                  />
+                  <label for="passwordInput">Password</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" id="signInBtn" type="submit">
+                  Sign in
+                </button>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-          <label for="floatingPassword">Password</label>
+      </div>
+
+
+      <!-- EDIT MODAL  -->
+      <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title text-capitalize"
+              id="editModalLongTitle"
+            >
+             Edit Book
+            </h5>
+            <button type="button" class="close" ad="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+              <div class="form-group add_book_form">
+                <label for="editInputTitle">Title:</label>
+                <input
+                  type="text"
+                  class="form-control mb-3 mb-2"
+                  id="editInputTitle"
+                  placeholder="Book title:"
+                  required
+                />
+                <div class="invalid-feedback">
+                 Book title.
+                </div>
+                <div id="editBookId" style="display: none"></div>
+                <label for="editInputAuthor">Author:</label>
+                <input
+                  type="text"
+                  class="form-control mb-3"
+                  id="editInputAuthor"
+                  placeholder="Author:"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Author name.
+                </div>
+
+                <label for="editInputDate">Release date:</label>
+                <input
+                  type="number"
+                  class="form-control mb-3"
+                  min="1200"
+                  max="2099"
+                  step="1"
+                  id="editInputDate"
+                  placeholder="Publication date:"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please provide a valid date.
+                </div>
+                <label for="editInputImg">Image:</label>
+                <input
+                  type="url"
+                  class="form-control mb-3"
+                  id="editInputImg"
+                  placeholder="Image url:"
+                />
+
+                <label for="inputRating">Rating:</label>
+                <select class="form-control mb-3" id="editInputRating">
+                  <option value="0">Unknown</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary" id="submitEditBook">
+                Edit Book
+              </button>
+            </div>
+          </form>
         </div>
-        
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 201  7–2022</p>
-      </form>
+      </div>
     </div>
-    </div>
-  </div>
-</div>
     </header>
     <main>
       <div class="container-fluid m-4">
         <div class="row align-items-start" id="main-box">
-          <div class="card me-auto">
-            <div
-              class="card-img-top pt-2"
-            >
-              <img
-                src="https://www.easons.com/globalassets/5637150827/all/books/childrens/childrens-5-to-8/fiction-5-to-8-years/9781529034523.jpg"
-                class="card-img-top"
-                alt="Book cover image"
-              />
-            </div>
-            <div class="card-body">
-              <h5 class="card-title fw-bold text-capitalize">The hitchhiker's guide to the galaxy</h5>
-              <ul class="list-group list-group-flush">
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-start p-0  pt-2 pb-2"
-                >
-                  <div>
-                    <div class="fw-bold">Author</div>
-                    Douglas Adams
-                  </div>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-start p-0 pt-2 pb-2"
-                >
-                  <div>
-                    <div class="fw-bold">Published</div>
-                    1979
-                  </div>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-start p-0 pt-2 pb-2"
-                >
-                  <div>
-                    <div class="fw-bold">Rating</div>
-                    4/5
-                  </div>
-                </li>
-              </ul>
-              <div class="d-grid gap-2">
-                <button class="btn btn-primary checkBtn" type="button">
-                  Mark as read
-                </button>
-              </div>
-            </div>
-          </div>
 
       </div>
     </main>
-   
-    <footer></footer>
 
+    <footer></footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
