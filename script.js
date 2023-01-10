@@ -20,14 +20,14 @@ window.localStorage.setItem(
 
 // INITIAL BOOK DATASET FOR EXAMPLE
 
-let setBooks = [
+let preset = [
   {
     author: "J.R.R. Tolkien",
     title: "The Lord of The Rings",
     date: "1954",
     img: "https://m.media-amazon.com/images/I/71jLBXtWJWL.jpg",
-    rating: "4",
-    id: new Date(),
+    rating: "5",
+    id: Date.now() + 1,
   },
   {
     author: "Ernest Cline",
@@ -35,7 +35,7 @@ let setBooks = [
     date: "20122",
     img: "https://books.google.ie/books/content?id=8qs1-ypf7e0C&pg=PT5&img=1&zoom=3&hl=en&sig=ACfU3U0EbjawvIbIZdyGDjNqtCv_yCxcgA&w=1280",
     rating: "3",
-    id: new Date(),
+    id: Date.now() + 2,
   },
   {
     author: "Douglas Adams",
@@ -43,11 +43,18 @@ let setBooks = [
     date: "1978",
     img: "https://omimages.s3.eu-west-1.amazonaws.com/covers/9781529034523.jpg",
     rating: "4",
-    id: new Date(),
+    id: Date.now(),
+  },
+  {
+    author: "F. Scott Fitzgerald",
+    title: "The Great Gatsby",
+    date: "1925",
+    img: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ87761SZPN4obDMsUEO3dTzhN3ksXJn9owJm0pXDXnt6Q83E6A",
+    rating: "2",
+    id: Date.now(),
   },
 ];
-
-console.log(setBooks);
+setBooks = [];
 // CHECK IF USER IS LOGGED
 let isLogged;
 //Load saved setBooks
@@ -62,19 +69,21 @@ window.addEventListener("load", () => {
 
   const booksData = JSON.parse(window.localStorage.getItem("books"));
   if (booksData !== null) {
-    setBooks = [...setBooks, ...booksData];
+    setBooks = [...booksData];
     console.log(setBooks);
-
-    for (let i = 0; i < setBooks.length; i++) {
-      createNewBook(
-        setBooks[i].author,
-        setBooks[i].title,
-        setBooks[i].date,
-        setBooks[i].img,
-        setBooks[i].rating,
-        setBooks[i].id
-      );
-    }
+  } else if (setBooks.length == 0) {
+    setBooks = [...preset];
+    console.log(setBooks);
+  }
+  for (let i = 0; i < setBooks.length; i++) {
+    createNewBook(
+      setBooks[i].author,
+      setBooks[i].title,
+      setBooks[i].date,
+      setBooks[i].img,
+      setBooks[i].rating,
+      setBooks[i].id
+    );
   }
 });
 document.addEventListener("click", (e) => {
@@ -146,7 +155,7 @@ const createNewBook = (author, title, date, url, rating, id) => {
   // backgroundDiv.innerHTML =
 
   const card = document.createElement("div");
-  card.classList.add("card", "me-auto", "p-0");
+  card.classList.add("card", "me-4", "p-0", "bookCard");
   card.id = id;
   mainBox.appendChild(card);
 
@@ -229,7 +238,11 @@ const createNewBook = (author, title, date, url, rating, id) => {
 
   const editDiv = document.createElement("div");
   editDiv.classList.add("d-grid", "gap-2", "mt-2");
-  editDiv.innerHTML = `<button class='btn btn-sm btn-outline-danger  deleteBtn ${id}' type='button'><i class='fa-regular fa-trash-can'></i> Delete</button><button class='btn btn-sm btn-outline-secondary editBtn ${id}' type='button'><i class='fa-regular fa-pen-to-square mr-2'></i> Edit</button></div>`;
+  if (isLogged == null || isLogged == "0") {
+    editDiv.innerHTML = `<button class='btn btn-sm btn-outline-danger  deleteBtn ${id} hiddenBtns' type='button'><i class='fa-regular fa-trash-can'></i> Delete</button><button class='btn btn-sm btn-outline-secondary editBtn hiddenBtns ${id}' type='button'><i class='fa-regular fa-pen-to-square mr-2'></i> Edit</button></div>`;
+  } else if (isLogged == "1") {
+    editDiv.innerHTML = `<button class='btn btn-sm btn-outline-danger  deleteBtn ${id}' type='button'><i class='fa-regular fa-trash-can'></i> Delete</button><button class='btn btn-sm btn-outline-secondary editBtn ${id}' type='button'><i class='fa-regular fa-pen-to-square mr-2'></i> Edit</button></div>`;
+  }
   cardBody.appendChild(editDiv);
 };
 
@@ -331,8 +344,8 @@ const loginDivs = () => {
   document.querySelector("#userProfile").style.display = "block";
   const editDiv = document.querySelectorAll(".editBtn");
   const dltBtn = document.querySelectorAll(".deleteBtn");
-  editDiv.forEach((e) => (e.style.display = "block"));
-  dltBtn.forEach((e) => (e.style.display = "block"));
+  editDiv.forEach((e) => e.classList.remove("hiddenBtns"));
+  dltBtn.forEach((e) => e.classList.remove("hiddenBtns"));
 };
 const loggoutDivs = () => {
   document.querySelector("#loginBtn").style.display = "block";
@@ -340,6 +353,22 @@ const loggoutDivs = () => {
   document.querySelector("#userProfile").style.display = "none";
   const editDiv = document.querySelectorAll(".editBtn");
   const dltBtn = document.querySelectorAll(".deleteBtn");
-  editDiv.forEach((e) => (e.style.display = "none"));
-  dltBtn.forEach((e) => (e.style.display = "none"));
+  editDiv.forEach((e) => e.classList.add("hiddenBtns"));
+  dltBtn.forEach((e) => e.classList.add("hiddenBtns"));
 };
+// SEARCH FUNCTION
+
+const searchBar = document.querySelector("#searchBar");
+searchBar.addEventListener("keyup", () => {
+  let searchKey = searchBar.value.toUpperCase();
+  for (let i = 0; i < setBooks.length; i++) {
+    if (setBooks[i].title.toUpperCase().indexOf(searchKey) == -1) {
+      let cardId = document.getElementById(setBooks[i].id);
+      cardId.style.display = "none";
+    } else {
+      let cardId = document.getElementById(setBooks[i].id);
+      cardId.style.display = "block";
+    }
+    console.log(setBooks[i].title.toUpperCase().indexOf(searchKey));
+  }
+});
