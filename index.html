@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
+    <title>Library</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -20,16 +20,95 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <!-- Button trigger modal -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModalCenter"
-      >
-        New Book
-      </button>
+    <header class="p-3 mb-3 border-bottom bg-light">
+      <div class="container">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+          >
+            <i
+              class="fa-solid fa-book-bookmark"
+              style="
+                font-size: 2.8rem;
+                margin-right: 1.4rem;
+                color: #0d6efd;
+                cursor: default;
+              "
+            ></i>
+          </a>
+
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+          >
+            <li>
+              <a href="#" class="nav-link px-2 link-secondary">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalCenter"
+                >
+                  New Book
+                </button></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-secondary">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="loginBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                >
+                  Login
+                </button>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-secondary">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="logoutBtn"
+                >
+                  Logout
+                </button>
+              </a>
+            </li>
+          </ul>
+
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input
+              type="search"
+              class="form-control"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+          </form>
+
+          <div class="text-end" id="userProfile">
+            <a href="#" class="d-block link-dark text-decoration-none">
+              <img
+                src="https://github.com/mdo.png"
+                alt="mdo"
+                width="32"
+                height="32"
+                class="rounded-circle"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MODALS -->
+
+    <div class="modals">
+      <!-- New Book Modal -->
       <div
         class="modal fade"
         id="exampleModalCenter"
@@ -110,15 +189,15 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                   </select>
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="isRead"
-                    value="isRead"
-                  />
-                  <label class="form-check-label" for="isRead"
-                    >Mark as read</label
-                  >
+                  <!-- <input
+             type="checkbox"
+             class="form-check-input"
+             id="isRead"
+             value="isRead"
+           />
+           <label class="form-check-label" for="isRead"
+             >Mark as read</label
+           > -->
                 </div>
               </div>
               <div class="modal-footer">
@@ -137,15 +216,8 @@
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        class="btn btn-primary"
-        id="loginBtn"
-        data-bs-toggle="modal"
-        data-bs-target="#loginModal"
-      >
-        Login
-      </button>
+
+      <!-- SIGN IN MODAL -->
       <div
         class="modal fade"
         id="loginModal"
@@ -156,10 +228,6 @@
       >
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <!-- <button type="button" class="close" ad="modal" aria-label="Close" >
-          <span aria-hidden="true">&times;</span>
-        </button> -->
-
             <div class="modal-body form-signin w-100 m-auto mt-5">
               <form class="">
                 <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
@@ -182,7 +250,11 @@
                   />
                   <label for="passwordInput">Password</label>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary" id="signInBtn" type="submit">
+                <button
+                  class="w-100 btn btn-lg btn-primary"
+                  id="signInBtn"
+                  type="submit"
+                >
                   Sign in
                 </button>
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
@@ -192,115 +264,140 @@
         </div>
       </div>
 
-
       <!-- EDIT MODAL  -->
       <div
-      class="modal fade"
-      id="editModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="editModalTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5
-              class="modal-title text-capitalize"
-              id="editModalLongTitle"
-            >
-             Edit Book
-            </h5>
-            <button type="button" class="close" ad="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form>
-            <div class="modal-body">
-              <div class="form-group add_book_form">
-                <label for="editInputTitle">Title:</label>
-                <input
-                  type="text"
-                  class="form-control mb-3 mb-2"
-                  id="editInputTitle"
-                  placeholder="Book title:"
-                  required
-                />
-                <div class="invalid-feedback">
-                 Book title.
-                </div>
-                <div id="editBookId" style="display: none"></div>
-                <label for="editInputAuthor">Author:</label>
-                <input
-                  type="text"
-                  class="form-control mb-3"
-                  id="editInputAuthor"
-                  placeholder="Author:"
-                  required
-                />
-                <div class="invalid-feedback">
-                  Author name.
-                </div>
-
-                <label for="editInputDate">Release date:</label>
-                <input
-                  type="number"
-                  class="form-control mb-3"
-                  min="1200"
-                  max="2099"
-                  step="1"
-                  id="editInputDate"
-                  placeholder="Publication date:"
-                  required
-                />
-                <div class="invalid-feedback">
-                  Please provide a valid date.
-                </div>
-                <label for="editInputImg">Image:</label>
-                <input
-                  type="url"
-                  class="form-control mb-3"
-                  id="editInputImg"
-                  placeholder="Image url:"
-                />
-
-                <label for="inputRating">Rating:</label>
-                <select class="form-control mb-3" id="editInputRating">
-                  <option value="0">Unknown</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary" id="submitEditBook">
+        class="modal fade"
+        id="editModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="editModalTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-capitalize" id="editModalLongTitle">
                 Edit Book
+              </h5>
+              <button type="button" class="close" ad="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
-          </form>
+            <form>
+              <div class="modal-body">
+                <div class="form-group add_book_form">
+                  <label for="editInputTitle">Title:</label>
+                  <input
+                    type="text"
+                    class="form-control mb-3 mb-2"
+                    id="editInputTitle"
+                    placeholder="Book title:"
+                    required
+                  />
+                  <div class="invalid-feedback">Book title.</div>
+                  <div id="editBookId" style="display: none"></div>
+                  <label for="editInputAuthor">Author:</label>
+                  <input
+                    type="text"
+                    class="form-control mb-3"
+                    id="editInputAuthor"
+                    placeholder="Author:"
+                    required
+                  />
+                  <div class="invalid-feedback">Author name.</div>
+
+                  <label for="editInputDate">Release date:</label>
+                  <input
+                    type="number"
+                    class="form-control mb-3"
+                    min="1200"
+                    max="2099"
+                    step="1"
+                    id="editInputDate"
+                    placeholder="Publication date:"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please provide a valid date.
+                  </div>
+                  <label for="editInputImg">Image:</label>
+                  <input
+                    type="url"
+                    class="form-control mb-3"
+                    id="editInputImg"
+                    placeholder="Image url:"
+                  />
+
+                  <label for="inputRating">Rating:</label>
+                  <select class="form-control mb-3" id="editInputRating">
+                    <option value="0">Unknown</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="submitEditBook"
+                >
+                  Edit Book
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    </header>
-    <main>
-      <div class="container-fluid m-4">
-        <div class="row align-items-start" id="main-box">
 
+    <main>
+      <div class="album bg-none" id="custom-cards">
+        <div class="container">
+          <div
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+            id="main-box"
+          ></div>
+        </div>
       </div>
     </main>
 
-    <footer></footer>
+    <footer
+      class="d-flex flex-wrap justify-content-between align-items-center align-self-end py-3 mt-4 bg-secondary"
+      id="footer"
+    >
+      <div class="col-md-4 d-flex align-items-center">
+        <a
+          href="/"
+          class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
+        >
+        </a>
+        <span class="mb-3 mb-md-0 text-muted">&copy; 2022 Company, Inc</span>
+      </div>
+
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3">
+          <a class="text-muted" href="#"></a>
+        </li>
+        <li class="ms-3">
+          <a class="text-muted" href="#"></a>
+        </li>
+        <li class="ms-3">
+          <a class="text-muted" href="#"></a>
+        </li>
+      </ul>
+    </footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"

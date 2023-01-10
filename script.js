@@ -3,7 +3,6 @@ const inputDate = document.querySelector("#inputDate");
 const inputTitle = document.querySelector("#inputTitle");
 const inputImg = document.querySelector("#inputImg");
 const inputRating = document.querySelector("#inputRating");
-const isRead = document.querySelector("#isRead");
 const addBookForm = document.querySelector(".add_book_form");
 const editInputAuthor = document.querySelector("#editInputAuthor");
 const editInputDate = document.querySelector("#editInputDate");
@@ -18,12 +17,53 @@ window.localStorage.setItem(
     password: "1234567",
   })
 );
+
+// INITIAL BOOK DATASET FOR EXAMPLE
+
+let setBooks = [
+  {
+    author: "J.R.R. Tolkien",
+    title: "The Lord of The Rings",
+    date: "1954",
+    img: "https://m.media-amazon.com/images/I/71jLBXtWJWL.jpg",
+    rating: "4",
+    id: new Date(),
+  },
+  {
+    author: "Ernest Cline",
+    title: "Ready Player One",
+    date: "20122",
+    img: "https://books.google.ie/books/content?id=8qs1-ypf7e0C&pg=PT5&img=1&zoom=3&hl=en&sig=ACfU3U0EbjawvIbIZdyGDjNqtCv_yCxcgA&w=1280",
+    rating: "3",
+    id: new Date(),
+  },
+  {
+    author: "Douglas Adams",
+    title: "The Hitchhiker's Guide to the Galaxy",
+    date: "1978",
+    img: "https://omimages.s3.eu-west-1.amazonaws.com/covers/9781529034523.jpg",
+    rating: "4",
+    id: new Date(),
+  },
+];
+
+console.log(setBooks);
+// CHECK IF USER IS LOGGED
+let isLogged;
 //Load saved setBooks
-let setBooks = [];
 window.addEventListener("load", () => {
+  isLogged = sessionStorage.getItem("isLogged");
+  if (isLogged == null || isLogged == "0") {
+    sessionStorage.setItem("isLogged", "0");
+    loggoutDivs();
+  } else if (isLogged == "1") {
+    loginDivs();
+  }
+
   const booksData = JSON.parse(window.localStorage.getItem("books"));
   if (booksData !== null) {
-    setBooks = [...booksData];
+    setBooks = [...setBooks, ...booksData];
+    console.log(setBooks);
 
     for (let i = 0; i < setBooks.length; i++) {
       createNewBook(
@@ -32,7 +72,6 @@ window.addEventListener("load", () => {
         setBooks[i].date,
         setBooks[i].img,
         setBooks[i].rating,
-        setBooks[i].isRead,
         setBooks[i].id
       );
     }
@@ -60,8 +99,8 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
     inputTitle.value === ""
   ) {
   } else {
-    const rating =
-      inputRating.value === "0" ? "Unknown" : inputRating.value + "/5";
+    const rating = inputRating.value;
+    // inputRating.value === "0" ? "Unknown" : inputRating.value + "/5";
 
     //new book obj
     const book = {
@@ -71,7 +110,6 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
       date: inputDate.value,
       img: inputImg.value,
       rating: rating,
-      isRead: isRead.checked,
     };
     setBooks.push(book);
     //saving new book to local storage
@@ -83,7 +121,6 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
       book.date,
       book.img,
       book.rating,
-      book.isRead,
       book.id
     );
     //close modal
@@ -97,17 +134,19 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
     inputDate.value = "";
     inputImg.value = "";
     rating.value = 0;
-    isRead.checked = false;
     addBookForm.classList.remove("was-validated");
   }
 });
 
 //create new book html element
-const createNewBook = (author, title, date, url, rating, isRead, id) => {
+const createNewBook = (author, title, date, url, rating, id) => {
   const mainBox = document.querySelector("#main-box");
 
+  const backgroundDiv = document.createElement("div");
+  // backgroundDiv.innerHTML =
+
   const card = document.createElement("div");
-  card.classList.add("card", "me-auto");
+  card.classList.add("card", "me-auto", "p-0");
   card.id = id;
   mainBox.appendChild(card);
 
@@ -117,12 +156,15 @@ const createNewBook = (author, title, date, url, rating, isRead, id) => {
   // card.appendChild(cardId);
 
   const cardTop = document.createElement("div");
-  cardTop.classList.add("card-img-top", "pt-2");
+  cardTop.classList.add("card-div-top");
+  cardTop.style.overflow = "hidden";
+
   card.appendChild(cardTop);
 
   const cardTopImg = document.createElement("img");
   cardTopImg.classList.add("card-img-top");
   cardTopImg.src = url;
+
   cardTop.appendChild(cardTopImg);
 
   const cardBody = document.createElement("div");
@@ -148,7 +190,7 @@ const createNewBook = (author, title, date, url, rating, isRead, id) => {
     "pt-2",
     "pb-2"
   );
-  authorLi.innerHTML = `<div><div class='fw-bold'>Author</div>${author}</div>`;
+  authorLi.innerHTML = `<div>${author}</div>`;
   cardUl.appendChild(authorLi);
 
   const dateLi = document.createElement("li");
@@ -161,7 +203,7 @@ const createNewBook = (author, title, date, url, rating, isRead, id) => {
     "pt-2",
     "pb-2"
   );
-  dateLi.innerHTML = `<div><div class='fw-bold'>Published</div>${date}</div>`;
+  dateLi.innerHTML = `<div>${date}</div>`;
   cardUl.appendChild(dateLi);
 
   const ratingLi = document.createElement("li");
@@ -174,26 +216,20 @@ const createNewBook = (author, title, date, url, rating, isRead, id) => {
     "pt-2",
     "pb-2"
   );
-
-  ratingLi.innerHTML = `<div><div class='fw-bold'>Rating</div>${rating}</div>`;
-  cardUl.appendChild(ratingLi);
-
-  const readBtnDiv = document.createElement("div");
-  readBtnDiv.classList.add("d-grid", "gap-2");
-
-  if (isRead) {
-    readBtnDiv.innerHTML =
-      "<button class='btn btn-primary checkBtn active' type='button'>Read</button>";
-  } else {
-    readBtnDiv.innerHTML =
-      "<button class='btn btn-primary checkBtn' type='button'>Mark as read</button>";
+  let stars = "";
+  for (let i = 0; i < 5; i++) {
+    if (i < rating && rating != 0) {
+      stars = stars + "<i class='fa-solid fa-star'></i>";
+    } else {
+      stars = stars + "<i class='fa-regular fa-star'></i>";
+    }
   }
-
-  cardBody.appendChild(readBtnDiv);
+  ratingLi.innerHTML = `<div>${stars}</div>`;
+  cardUl.appendChild(ratingLi);
 
   const editDiv = document.createElement("div");
   editDiv.classList.add("d-grid", "gap-2", "mt-2");
-  editDiv.innerHTML = `<button class='btn btn-danger  deleteBtn ${id}' type='button'><i class='fa-regular fa-trash-can'></i> Delete</button><button class='btn btn-secondary editBtn ${id}' type='button'><i class='fa-regular fa-pen-to-square mr-2'></i> Edit</button></div>`;
+  editDiv.innerHTML = `<button class='btn btn-sm btn-outline-danger  deleteBtn ${id}' type='button'><i class='fa-regular fa-trash-can'></i> Delete</button><button class='btn btn-sm btn-outline-secondary editBtn ${id}' type='button'><i class='fa-regular fa-pen-to-square mr-2'></i> Edit</button></div>`;
   cardBody.appendChild(editDiv);
 };
 
@@ -209,18 +245,21 @@ document.querySelector("#signInBtn").addEventListener("click", (e) => {
     let myModalEl = document.querySelector("#loginModal");
     let modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
     modal.hide();
-
-    const editDiv = document.querySelectorAll(".editBtn");
-    const dltBtn = document.querySelectorAll(".deleteBtn");
-    editDiv.forEach((e) => (e.style.display = "block"));
-    dltBtn.forEach((e) => (e.style.display = "block"));
+    sessionStorage.setItem("isLogged", "1");
+    loginDivs();
   }
+});
+
+document.querySelector("#logoutBtn").addEventListener("click", (e) => {
+  window.sessionStorage.setItem("isLogged", "0");
+  loggoutDivs();
 });
 
 //delete card
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("deleteBtn")) {
-    const id = e.target.classList[3];
+    console.log(e.target.classList);
+    const id = e.target.classList[4];
     let card = document.getElementById(id);
     for (let i = 0; i < setBooks.length; i++) {
       if (setBooks[i].id == id) {
@@ -231,7 +270,7 @@ document.addEventListener("click", (e) => {
     card.remove();
   }
   if (e.target.classList.contains("editBtn")) {
-    const id = e.target.classList[3];
+    const id = e.target.classList[4];
     let editBookId = document.querySelector("#editBookId");
     editBookId.innerText = "";
     // let card = document.getElementById(id);
@@ -276,7 +315,6 @@ submitEditBook.addEventListener("click", (e) => {
       setBooks[i].date,
       setBooks[i].img,
       setBooks[i].rating,
-      setBooks[i].isRead,
       setBooks[i].id
     );
   }
@@ -284,3 +322,24 @@ submitEditBook.addEventListener("click", (e) => {
   let modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
   modal.hide(myModalEl);
 });
+
+//help functions
+
+const loginDivs = () => {
+  document.querySelector("#loginBtn").style.display = "none";
+  document.querySelector("#logoutBtn").style.display = "block";
+  document.querySelector("#userProfile").style.display = "block";
+  const editDiv = document.querySelectorAll(".editBtn");
+  const dltBtn = document.querySelectorAll(".deleteBtn");
+  editDiv.forEach((e) => (e.style.display = "block"));
+  dltBtn.forEach((e) => (e.style.display = "block"));
+};
+const loggoutDivs = () => {
+  document.querySelector("#loginBtn").style.display = "block";
+  document.querySelector("#logoutBtn").style.display = "none";
+  document.querySelector("#userProfile").style.display = "none";
+  const editDiv = document.querySelectorAll(".editBtn");
+  const dltBtn = document.querySelectorAll(".deleteBtn");
+  editDiv.forEach((e) => (e.style.display = "none"));
+  dltBtn.forEach((e) => (e.style.display = "none"));
+};
