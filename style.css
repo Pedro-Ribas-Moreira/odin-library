@@ -73,9 +73,12 @@
   display: none;
 }
 #footer {
-  position: fixed;
   width: 100%;
   max-height: 120px;
   bottom: 0;
   left: 0;
+}
+
+body {
+  min-height: 100vh;
 }

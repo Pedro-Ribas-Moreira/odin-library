@@ -151,18 +151,10 @@ document.querySelector("#addBookBtn").addEventListener("click", (e) => {
 const createNewBook = (author, title, date, url, rating, id) => {
   const mainBox = document.querySelector("#main-box");
 
-  const backgroundDiv = document.createElement("div");
-  // backgroundDiv.innerHTML =
-
   const card = document.createElement("div");
   card.classList.add("card", "me-4", "p-0", "bookCard");
   card.id = id;
   mainBox.appendChild(card);
-
-  // const cardId = document.createElement("div");
-  // cardId.style.display = "none";
-  // cardId.id = id;
-  // card.appendChild(cardId);
 
   const cardTop = document.createElement("div");
   cardTop.classList.add("card-div-top");
@@ -320,6 +312,7 @@ submitEditBook.addEventListener("click", (e) => {
   localStorage.setItem("books", JSON.stringify(setBooks));
 
   const main = document.querySelector("#main-box");
+  console.log(isLogged);
   main.innerHTML = "";
   for (let i = 0; i < setBooks.length; i++) {
     createNewBook(
